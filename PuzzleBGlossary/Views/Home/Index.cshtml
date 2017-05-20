@@ -1,24 +1,140 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+﻿@section scripts {
+    @Scripts.Render("~/Bundles/app")
+
+    <style type="text/css">       
+
+        button {
+            display: inline-block;
+            outline: none;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            padding: .4em 1.1em .4em;
+            color: #fef4e9;
+            border: solid 1px #006fb9;
+            background: #1276bb;
+        }
+
+            button:hover {
+                text-decoration: none;
+                background: #282828;
+                border: solid 1px #000;
+            }
+
+        table {
+            padding-top: 1em;
+        }
+
+        thead, tfoot {
+            font-weight: 600;
+        }
+
+        th, td {
+            padding: .1em .5em;
+            text-align: left;
+        }
+
+            td li, td ul {
+                margin: 0;
+                padding: 0;
+            }
+
+            td li {
+                display: inline;
+            }
+
+                td li::after {
+                    content: ',';
+                }
+
+                td li:last-child::after {
+                    content: '';
+                }
+    </style>
+}
+
+<div class="page-header">
+    <h3>ASP.NET MVC 5 Application using WEBAPI 2.0 with Entity Framework 6 (Code First Approach)</h3>
+    <br />
+    <h3>CRUD Operations using Client in Knockout JS</h3>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Glossary</h2>
+            </div>
+            <div class="panel-body">
+                <table class="table" id="glossaryTable">
+                    <thead>
+                        <tr>
+                            <th>Term</th>
+                            <th>Defintion</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: glossaries()">
+                        <tr>
+                            <td data-bind="text: Term"></td>
+                            <td data-bind="text: Definition"></td>
+                            <td>
+                                <button data-bind="click: $root.edit">Edit</button>
+                                <button data-bind="click: $root.delete">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
+    </div>
 </div>
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
+    <div class="col-md-12">
+        <div class="panel panel-default" data-bind="if: glossary">
+            <div class="panel-heading">
+                <h2 class="panel-title">Update Glossary Term</h2>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="Id" data-bind="visible: false">ID</label>
+                    <label data-bind="text: glossary().ID, visible: false"></label>
+                </div>
+                <div class="form-group">
+                    <label for="term">Term</label>
+                    <input data-bind="value: glossary().Term" type="text" title="Term" class="form-control input-lg" />
+                </div>
+                <div class="form-group">
+                    <label for="definition">Definition</label>
+                    <input data-bind="value: glossary().Definition" type="text" title="Definition" class="form-control input-lg" />
+                </div>
+                <br />
+                <div>
+                    <button data-bind="click: $root.update">Update</button>
+                    <button data-bind="click: $root.cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" data-bind="ifnot: glossary">
+            <div class="panel-heading">
+                <h2 class="panel-title">Add New Glossary Term</h2>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="term">Term</label>
+                    <input data-bind="value: $root.Term" type="text" title="Term" class="form-control input-lg" />
+                </div>
+                <div class="form-group">
+                    <label for="definition">Definition</label>
+                    <input data-bind="value: $root.Definition" type="text" title="Definition" class="form-control input-lg" />
+                </div>
+                <br />
+                <div>
+                    <button data-bind="click: $root.create">Save</button>
+                    <button data-bind="click: $root.reset">Reset</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

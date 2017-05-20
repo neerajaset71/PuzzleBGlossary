@@ -23,6 +23,11 @@ namespace PuzzleBGlossary
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // New code:
+            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                      "~/Scripts/knockout-{version}.js",
+                      "~/Scripts/app.js"));
         }
     }
 }
